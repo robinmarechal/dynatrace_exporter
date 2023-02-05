@@ -14,11 +14,23 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
-    - name: Build develop docker image
-      if: github.ref == 'refs/heads/develop'
-      run: docker build . --file Dockerfile --tag ${{ github.repository }}:develop
-      
-    - name: Build release docker image
-      if: startsWith(github.ref, 'refs/heads/release/')
-      run: docker build . --file Dockerfile --tag ${{ github.repository }}:$(git rev-parse --abbrev-ref HEAD | cut -d / -f 2)
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.CR_PAT }}
+        
+    - name: Build the hello-world Docker image
+      run: |
+        REPO=${{ github.repository }}
+        
+        VERSION=develop
+        if [[ ${{ github.ref_name }} == refs/heads/release/* ]]; then
+          VERSION=$(echo ${{ github.ref_name }} | cut -d / -f 4)
+        fi
+        
+        docker build . --tag ghcr.io/$REPO:$VERSION
+        docker run ghcr.io/$REPO:$VERSION
+        docker push ghcr.io/$REPO:$VERSION
