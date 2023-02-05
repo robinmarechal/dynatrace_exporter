@@ -20,3 +20,4 @@ jobs:
       with:
         tag: v${{ env.VERSION }}
         message: "Version ${{ env.VERSION }}"
+        github_token: ${{ secrets.CR_PAT }}
