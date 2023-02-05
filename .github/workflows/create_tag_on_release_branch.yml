@@ -13,7 +13,7 @@ jobs:
     - name: Set develop VERSION env
       run: echo "VERSION=$(echo ${{ github.ref_name }} | sed s/v//)" >> $GITHUB_ENV
     
-    - name: Create tag and push
-      run: |
-        git tag v$VERSION
-        git push --tags
+    - uses: rickstaa/action-create-tag@v1
+      with:
+        tag: v${{ env.VERSION }}
+        message: "Version ${{ env.VERSION }}
