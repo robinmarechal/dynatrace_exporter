@@ -41,5 +41,5 @@ jobs:
       with:
         files: |
           sha256sums.txt
-          ${{ env.VERSION }}.zip
-          ${{ env.VERSION }}.tar.gz
+          ${{ env.ARCHIVE_NAME }}.zip
+          ${{ env.ARCHIVE_NAME }}.tar.gz
