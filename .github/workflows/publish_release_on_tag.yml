@@ -30,7 +30,7 @@ jobs:
       
     # Tests
     - name: Test sha256sums
-      run: cat Release.txt
+      run: cat sha256sums.txt
     - name: Test zip
       run: test -f $ARCHIVE_NAME.zip
     - name: Test targz
