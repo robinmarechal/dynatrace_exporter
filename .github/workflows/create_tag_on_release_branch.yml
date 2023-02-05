@@ -16,4 +16,4 @@ jobs:
     - uses: rickstaa/action-create-tag@v1
       with:
         tag: v${{ env.VERSION }}
-        message: "Version ${{ env.VERSION }}
+        message: "Version ${{ env.VERSION }}"
