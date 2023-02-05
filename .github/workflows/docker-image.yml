@@ -10,14 +10,15 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: test
-        run: echo ${{ github.repository }} ${{ github.ref_type }} ${{ github.ref_name }}
 
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
       
-#     - name: Build the Docker image
-#       run: docker build . --file Dockerfile --tag ${{ github.repository }}:$(date +%s)
+    - name: Build develop docker image
+      if: github.ref == 'refs/heads/develop'
+      run: docker build . --file Dockerfile --tag ${{ github.repository }}:develop
+      
+    - name: Build release docker image
+      if: github.ref == refs/heads/release/*
+      run: docker build . --file Dockerfile --tag ${{ github.repository }}:$(git rev-parse --abbrev-ref HEAD | cut -d / -f 2)
