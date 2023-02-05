@@ -1,0 +1,19 @@
+name: Create tag on release
+
+on:
+  push:
+    branches: [ "release/*" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set develop VERSION env
+      run: echo "VERSION=$(echo ${{ github.ref_name }} | sed s/v//)" >> $GITHUB_ENV
+    
+    - name: Create tag and push
+      run: |
+        git tag v$VERSION
+        git push --tags
