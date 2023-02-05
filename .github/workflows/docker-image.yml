@@ -20,5 +20,5 @@ jobs:
       run: docker build . --file Dockerfile --tag ${{ github.repository }}:develop
       
     - name: Build release docker image
-      if: github.ref == refs/heads/release/*
+      if: startsWith(github.ref, 'refs/heads/release/')
       run: docker build . --file Dockerfile --tag ${{ github.repository }}:$(git rev-parse --abbrev-ref HEAD | cut -d / -f 2)
