@@ -32,5 +32,4 @@ jobs:
         fi
         
         docker build . --tag ghcr.io/$REPO:$VERSION
-        docker run ghcr.io/$REPO:$VERSION
         docker push ghcr.io/$REPO:$VERSION
