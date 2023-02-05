@@ -39,6 +39,7 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
+        token: ${{ secrets.CR_PAT }}
         files: |
           sha256sums.txt
           ${{ env.ARCHIVE_NAME }}.zip
